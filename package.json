@@ -1,0 +1,33 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "APIs for the Shopping cart application in Sequelize",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon -r dotenv/config src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vijaykumarvemana/M6D3-shopping-cart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vijaykumarvemana/M6D3-shopping-cart/issues"
+  },
+  "homepage": "https://github.com/vijaykumarvemana/M6D3-shopping-cart#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-list-endpoints": "^6.0.0",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5"
+  }
+}
