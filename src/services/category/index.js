@@ -1,17 +1,21 @@
 import express from 'express'
 
 import db from  '../../db/models/index.js'
+import Product from '../../db/models/produts.js'
 
 const router = express.Router()
 
-const { Review, Product, Category} = db
+const { Review, User, Category} = db
 
 
 
 router.route("/").get(async (req,res, next) => {
     try {
         const category = await Category.findAll({
-            // include: Review,
+         include: [
+             Review, 
+             {model: Product, through: {attributes: []}},
+            ],
         })
         res.send(category)
     } catch (error) {

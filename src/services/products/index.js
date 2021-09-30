@@ -3,9 +3,10 @@ import express from 'express'
 
 import db from  '../../db/models/index.js'
 import s from 'sequelize'
+
 const { Op } = s
 const router = express.Router()
-const { Review, Product} = db
+const { Review, Product, User, Category} = db
 
 
 
@@ -13,7 +14,7 @@ router.route("/").get(async (req,res, next) => {
     try {
         const product = await Product.findAll({
             attributes: ["name", "category"],
-            include: Review,
+            
             where: req.query.search 
             ? {
                 [Op.or]: [
@@ -22,7 +23,13 @@ router.route("/").get(async (req,res, next) => {
                 ],
             }:
             {},
-        })
+            include: [ 
+                { 
+                model:Review,
+                include: { model: User, through: {attributes: []}}},
+
+             ],
+             Category,})
         res.send(product)
     } catch (error) {
         console.log(error)

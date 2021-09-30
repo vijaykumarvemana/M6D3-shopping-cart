@@ -1,11 +1,11 @@
 import express from 'express'
 
 import db from  '../../db/models/index.js'
-import User from '../../db/models/user.js'
+
 
 const router = express.Router()
 
-const {Product, Review} = db
+const {Product, Review, User} = db
 
 
 
