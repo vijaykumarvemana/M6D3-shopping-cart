@@ -1,29 +1,19 @@
 import express from 'express'
 
-
 import db from  '../../db/models/index.js'
-import s from 'sequelize'
-const { Op } = s
+
 const router = express.Router()
-const { Review, Product} = db
+
+const { Review, User} = db
 
 
 
 router.route("/").get(async (req,res, next) => {
     try {
-        const product = await Product.findAll({
-            attributes: ["name", "category"],
+        const user = await User.findAll({
             include: Review,
-            where: req.query.search 
-            ? {
-                [Op.or]: [
-                    {name: {[Op.iLike]: `%${req.query.search}%`}},
-                    {category: {[Op.iLike]: `%${req.query.search}%`}}
-                ],
-            }:
-            {},
         })
-        res.send(product)
+        res.send(user)
     } catch (error) {
         console.log(error)
         next(error)
@@ -31,8 +21,8 @@ router.route("/").get(async (req,res, next) => {
 })
 .post(async (req,res,next) => {
     try {
-        const product = await Product.create(req.body)
-        res.send(product)
+        const user = await User.create(req.body)
+        res.send(user)
         
     } catch (error) {
         console.log(error)
@@ -45,8 +35,8 @@ router.route("/").get(async (req,res, next) => {
 router.route("/:id")
 .get( async (req, res, next) => {
     try {
-        const product = await Product.findByPk(req.params.id)
-        res.send(product)
+        const user = await User.findByPk(req.params.id)
+        res.send(user)
     } catch (error) {
         console.log(error)
         next(error)
@@ -54,13 +44,13 @@ router.route("/:id")
 })
 .put( async (req,res,next) => {
     try {
-        const product = await Product.update(req.body,{
+        const user = await User.update(req.body,{
             where:{
                 id: req.params.id
             },
             returning: true,
         })
-        res.send(product[1][0])
+        res.send(user[1][0])
         
     } catch (error) {
         console.log(error)
@@ -70,7 +60,7 @@ router.route("/:id")
 .delete( async(req,res,next) => {
 
     try {
-        const rows = await Product.destroy({
+        const rows = await User.destroy({
             where:{
                 id: req.params.id,
             } })

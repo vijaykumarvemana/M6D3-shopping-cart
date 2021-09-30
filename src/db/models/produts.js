@@ -14,13 +14,9 @@ const Product = sequelize.define(
             type: DataTypes.INTEGER,
             autoIncrement: true,
         },
-        name: {
+        productName: {
             type: DataTypes.STRING,
             allowNull : false,
-        },
-        category: {
-            type: DataTypes.STRING,
-            allowNull: false,
         },
         image: {
             type: DataTypes.TEXT,

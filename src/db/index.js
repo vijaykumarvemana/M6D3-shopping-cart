@@ -23,7 +23,7 @@ const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD,{
 
 export const connectDB = async () => {
     try {
-        await sequelize.sync()
+        await sequelize.sync({force: true})
         console.log("database connected...")
         
     } catch (error) {

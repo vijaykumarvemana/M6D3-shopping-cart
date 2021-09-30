@@ -1,20 +1,20 @@
 import express from 'express'
 
-
 import db from  '../../db/models/index.js'
-import s from 'sequelize'
+import User from '../../db/models/user.js'
 
 const router = express.Router()
+
 const {Product, Review} = db
-const { Op } = s
+
 
 
 router.route("/").get(async (req,res, next) => {
     try {
         const review = await Review.findAll({
-            include: Product,
+            include: [Product, User]
         })
-        res.status(200).send(review)
+        res.send(review)
     } catch (error) {
         console.log(error)
         next(error)
@@ -23,7 +23,7 @@ router.route("/").get(async (req,res, next) => {
 .post(async (req,res,next) => {
     try {
         const review = await Review.create(req.body)
-        res.status(201).send(review)
+        res.send(review)
         
     } catch (error) {
         console.log(error)
