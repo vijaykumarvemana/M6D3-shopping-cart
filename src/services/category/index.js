@@ -12,10 +12,10 @@ const { Review, User, Category} = db
 router.route("/").get(async (req,res, next) => {
     try {
         const category = await Category.findAll({
-        //  include: [
-        //      Review, 
-        //      {model: Product, through: {attributes: []}},
-        //     ],
+         include: [
+             
+            {model: Product, through: {attributes: []}},
+           ],
         })
         res.send(category)
     } catch (error) {

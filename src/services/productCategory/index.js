@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 
-router.route("/:userId").get(async (req, res, next) => {
+router.route("/").get(async (req, res, next) => {
   try {
     const data = await ProductCategory.findAll({
     //   where: { userId: req.params.userId },

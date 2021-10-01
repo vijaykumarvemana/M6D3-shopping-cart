@@ -13,12 +13,12 @@ const { Review, Product, User, Category, ProductCategory} = db
 router.route("/").get(async (req,res, next) => {
     try {
         const product = await Product.findAll({
-            attributes: ["productName", "image", "price"],
+            attributes: ["id", "productName", "image", "price"],
             
             where: req.query.search 
             ? {
                 [Op.or]: [
-                    {name: {[Op.iLike]: `%${req.query.search}%`}},
+                    {productName: {[Op.iLike]: `%${req.query.search}%`}},
         
                 ],
             }:
@@ -26,8 +26,18 @@ router.route("/").get(async (req,res, next) => {
             include: [  
                Review,
               {model:ProductCategory},
-            Category,
+            {model:Category, through: {attributes:["categoryName"]},
+            where: req.query.search 
+            ? {
+                [Op.or]: [
+                    {categoryName: {[Op.iLike]: `%${req.query.search}%`}},
+        
+                ],
+            }:
+            {},}
+
              ],
+             
             })
 
 
