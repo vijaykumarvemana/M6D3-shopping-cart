@@ -26,16 +26,7 @@ router.route("/").get(async (req,res, next) => {
             include: [  
                Review,
               {model:ProductCategory},
-            {model:Category, through: {attributes:["categoryName"]},
-            where: req.query.search 
-            ? {
-                [Op.or]: [
-                    {categoryName: {[Op.iLike]: `%${req.query.search}%`}},
-        
-                ],
-            }:
-            {},}
-
+            Category,
              ],
              
             })
@@ -52,11 +43,11 @@ router.route("/").get(async (req,res, next) => {
         const {categoryId, ...rest} = req.body
         const product = await Product.create(req.body)
 
-        const productCtegory = await ProductCategory.create({
-            categoryId,
-            productId: product.id,
-          });
-        res.send({product, productCtegory})
+        // const productCtegory = await ProductCategory.create({
+        //     categoryId,
+        //     productId: product.id,
+        //   });
+        res.send({product})
 
 
    
