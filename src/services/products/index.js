@@ -13,23 +13,22 @@ const { Review, Product, User, Category} = db
 router.route("/").get(async (req,res, next) => {
     try {
         const product = await Product.findAll({
-            attributes: ["name", "category"],
+            attributes: ["productName", "image", "price"],
             
             where: req.query.search 
             ? {
                 [Op.or]: [
                     {name: {[Op.iLike]: `%${req.query.search}%`}},
-                    {category: {[Op.iLike]: `%${req.query.search}%`}}
+        
                 ],
             }:
             {},
-            include: [ 
-                { 
-                model:Review,
-                include: { model: User, through: {attributes: []}}},
-
+            include: [  
+               Review,
+            //    User,
+            //    Category,
              ],
-             Category,})
+            })
         res.send(product)
     } catch (error) {
         console.log(error)

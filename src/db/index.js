@@ -2,24 +2,25 @@ import {Sequelize} from 'sequelize'
 
 const {PGPORT, PGHOST, PGPASSWORD, PGUSER, PGDATABASE} = process.env
 
+const path = process.env.DATABASE_URL
 
-const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD,{
+const sequelize = new Sequelize(path, {
     port: PGPORT,
     host: PGHOST,
     dialect: "postgres",
 })
 
 
-// const testDB = async () => {
+const testDB = async () => {
 
-//     try {
-//         await sequelize.authenticate()
-//         console.log("Database is Authenticatd")
-//     } catch (error) {
-//        console.log(error) 
-//     }
-// }
-// testDB()
+    try {
+        await sequelize.authenticate()
+        console.log("Database is Authenticatd")
+    } catch (error) {
+       console.log(error) 
+    }
+}
+testDB()
 
 export const connectDB = async () => {
     try {

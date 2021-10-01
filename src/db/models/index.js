@@ -22,5 +22,13 @@ Product.belongsToMany(Category, {
     through: { model: ProductCategory, unique:false}
 })
 
+Product.hasMany(ProductCategory)
+ProductCategory.belongsTo(Product)
 
-export default {Review, Product, User}
+
+Category.hasMany(ProductCategory)
+ProductCategory.belongsTo(Category)
+
+
+
+export default {Review, Product, User, Category}
