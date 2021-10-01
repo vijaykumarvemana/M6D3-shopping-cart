@@ -31,4 +31,4 @@ ProductCategory.belongsTo(Category)
 
 
 
-export default {Review, Product, User, Category}
+export default {Review, Product, User, Category, ProductCategory}

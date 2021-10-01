@@ -7,6 +7,7 @@ import productRouter from "./services/products/index.js"
 import reviewRouter from './services/reviews/index.js'
 import userRouter from './services/users/index.js'
 import categoryRouter from "./services/category/index.js"
+import productCategoryRouter from "./services/productCategory/index.js"
 
 
 const server = express()
@@ -20,6 +21,7 @@ server.use("/products", productRouter)
 server.use("/reviews", reviewRouter)
 server.use("/users", userRouter)
 server.use("/categories", categoryRouter)
+server.use("/productCategories", productCategoryRouter)
 
 server.listen(PORT, async() => {
     console.log('Server is running on port:',PORT)

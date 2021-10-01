@@ -6,7 +6,7 @@ import s from 'sequelize'
 
 const { Op } = s
 const router = express.Router()
-const { Review, Product, User, Category} = db
+const { Review, Product, User, Category, ProductCategory} = db
 
 
 
@@ -25,10 +25,12 @@ router.route("/").get(async (req,res, next) => {
             {},
             include: [  
                Review,
-            //    User,
-            //    Category,
+              {model:ProductCategory},
+            Category,
              ],
             })
+
+
         res.send(product)
     } catch (error) {
         console.log(error)
@@ -37,8 +39,18 @@ router.route("/").get(async (req,res, next) => {
 })
 .post(async (req,res,next) => {
     try {
+        const {categoryId, ...rest} = req.body
         const product = await Product.create(req.body)
-        res.send(product)
+
+        const productCtegory = await ProductCategory.create({
+            categoryId,
+            productId: product.id,
+          });
+        res.send({product, productCtegory})
+
+
+   
+
         
     } catch (error) {
         console.log(error)
